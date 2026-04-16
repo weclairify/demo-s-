@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI News Digest — Daily AI briefings for your sector</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-hero { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%); }
+  </style>
+</head>
+<body class="bg-white font-sans antialiased">
+
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-8 py-5 max-w-6xl mx-auto">
+    <span class="text-xl font-bold text-indigo-600">AI News Digest</span>
+    <div class="flex gap-4">
+      <a href="/register" class="text-sm text-gray-600 hover:text-indigo-600 font-medium">Sign up</a>
+      <a href="#login" id="loginBtn"
+         class="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+        Log in
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="gradient-hero text-white py-24 px-8 text-center">
+    <div class="max-w-3xl mx-auto">
+      <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-6">
+        Powered by Claude AI
+      </span>
+      <h1 class="text-5xl font-extrabold leading-tight mb-6">
+        Your daily AI briefing,<br />tailored to your sector.
+      </h1>
+      <p class="text-lg text-indigo-100 mb-10 max-w-xl mx-auto">
+        Every morning we scan the web for the freshest AI news, summarise it with Claude,
+        and deliver a sharp, actionable digest straight to your inbox.
+      </p>
+      <a href="/register"
+         class="inline-block bg-white text-indigo-700 font-bold px-8 py-4 rounded-xl text-base
+                hover:bg-indigo-50 transition shadow-lg">
+        Start your free trial →
+      </a>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="py-20 px-8 bg-gray-50">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Built for every sector</h2>
+      <p class="text-gray-500 mb-12">Choose your industry and get news that actually matters to you.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        <div class="sector-card">🛍️ Retail</div>
+        <div class="sector-card">📡 Telecom</div>
+        <div class="sector-card">📣 Marketing</div>
+        <div class="sector-card">💰 Finance</div>
+        <div class="sector-card">🏥 Healthcare</div>
+        <div class="sector-card">🚚 Logistics</div>
+        <div class="sector-card">👥 HR</div>
+        <div class="sector-card">⚖️ Legal</div>
+        <div class="sector-card">🎓 Education</div>
+        <div class="sector-card">🤖 General AI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-20 px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-12">How it works</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="flex flex-col items-center">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-100 flex items-center justify-center text-2xl mb-4">📋</div>
+          <h3 class="font-semibold text-gray-900 mb-2">1. Sign up & choose sector</h3>
+          <p class="text-gray-500 text-sm">Create an account, pick your industry, and subscribe for €9/month.</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center text-2xl mb-4">🤖</div>
+          <h3 class="font-semibold text-gray-900 mb-2">2. Claude reads the news</h3>
+          <p class="text-gray-500 text-sm">Every morning our AI scans hundreds of sources and filters what matters.</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-14 h-14 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl mb-4">📧</div>
+          <h3 class="font-semibold text-gray-900 mb-2">3. Digest in your inbox</h3>
+          <p class="text-gray-500 text-sm">You receive a crisp, sector-specific briefing before your first coffee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="py-20 px-8 bg-gray-50">
+    <div class="max-w-md mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Simple pricing</h2>
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden mt-8">
+        <div class="gradient-hero p-8 text-white">
+          <p class="text-sm font-medium opacity-80">Monthly subscription</p>
+          <p class="text-6xl font-extrabold mt-2">€9<span class="text-2xl font-medium opacity-70">/mo</span></p>
+        </div>
+        <ul class="p-8 space-y-3 text-left text-gray-700 text-sm">
+          <li class="flex gap-2"><span class="text-indigo-500">✓</span> Daily digest at 07:00 AM</li>
+          <li class="flex gap-2"><span class="text-indigo-500">✓</span> Claude AI summarisation</li>
+          <li class="flex gap-2"><span class="text-indigo-500">✓</span> Sector-specific filtering</li>
+          <li class="flex gap-2"><span class="text-indigo-500">✓</span> Change sector anytime</li>
+          <li class="flex gap-2"><span class="text-indigo-500">✓</span> Cancel anytime</li>
+        </ul>
+        <div class="px-8 pb-8">
+          <a href="/register"
+             class="block w-full bg-indigo-600 text-white text-center font-bold py-3 rounded-xl
+                    hover:bg-indigo-700 transition">
+            Get started
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login modal -->
+  <div id="loginModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Log in</h2>
+      <div id="loginError" class="hidden mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm"></div>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="loginEmail" required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input type="password" id="loginPassword" required
+                 class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" />
+        </div>
+        <button type="submit"
+                class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition">
+          Log in
+        </button>
+      </form>
+      <p class="mt-4 text-center text-sm text-gray-500">
+        No account? <a href="/register" class="text-indigo-600 font-medium">Sign up</a>
+      </p>
+      <button onclick="document.getElementById('loginModal').classList.add('hidden')"
+              class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">✕</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-10 text-center text-gray-400 text-sm">
+    <p>© 2026 AI News Digest &mdash; Powered by <span class="text-indigo-500">Claude</span></p>
+  </footer>
+
+  <style>
+    .sector-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 16px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      text-align: center;
+    }
+  </style>
+
+  <script>
+    // Show login modal
+    document.getElementById('loginBtn').addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('loginModal').classList.remove('hidden');
+    });
+
+    // Login form
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const errEl = document.getElementById('loginError');
+
+      try {
+        const form = new URLSearchParams();
+        form.append('username', email);
+        form.append('password', password);
+
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: form,
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          errEl.textContent = data.detail || 'Login failed.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+
+        const data = await res.json();
+        localStorage.setItem('token', data.access_token);
+        window.location.href = '/dashboard';
+      } catch (err) {
+        errEl.textContent = 'Network error. Please try again.';
+        errEl.classList.remove('hidden');
+      }
+    });
+
+    // Redirect if already logged in
+    if (localStorage.getItem('token')) {
+      window.location.href = '/dashboard';
+    }
+  </script>
+</body>
+</html>
