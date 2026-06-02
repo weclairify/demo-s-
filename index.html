@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brewhaus Coffee — Specialty Roasters, Amsterdam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --espresso:  #1a0f07;
+      --roast:     #3d1f0d;
+      --crema:     #c8894a;
+      --gold:      #e8b86d;
+      --latte:     #f5e6d3;
+      --cream:     #fdf7f0;
+      --white:     #ffffff;
+      --text:      #2c1a0e;
+      --muted:     #7a5c44;
+      --ff-serif:  'Playfair Display', Georgia, serif;
+      --ff-sans:   'Inter', system-ui, sans-serif;
+      --max-w:     1200px;
+      --transition: 0.3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-sans);
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 5vw;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(26, 15, 7, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--crema);
+      color: var(--white) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2rem;
+      transition: background var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--espresso) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(160deg, rgba(26,15,7,0.88) 0%, rgba(61,31,13,0.65) 55%, rgba(200,137,74,0.18) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cdefs%3E%3CradialGradient id='a' cx='50%25' cy='50%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%234a2c0a'/%3E%3Cstop offset='60%25' stop-color='%231a0f07'/%3E%3Cstop offset='100%25' stop-color='%230d0704'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='800' height='600' fill='url(%23a)'/%3E%3Ccircle cx='200' cy='180' r='120' fill='%23c8894a' opacity='0.08'/%3E%3Ccircle cx='600' cy='420' r='160' fill='%23e8b86d' opacity='0.06'/%3E%3C/svg%3E") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 0 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative coffee-ring SVG */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 15%; right: 8%;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(200,137,74,0.18);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 18%; right: 11%;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,137,74,0.1);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 680px;
+      padding-top: 6rem;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--crema);
+    }
+    .hero-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--gold);
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 2.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--crema);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--gold);
+      color: var(--espresso);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(200,137,74,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.4);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-num {
+      font-family: var(--ff-serif);
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.15rem;
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 5vw; }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--crema);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--espresso);
+      margin-bottom: 1.25rem;
+    }
+    .section-title em { font-style: normal; color: var(--crema); }
+    .section-lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card {
+      background: var(--espresso);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+    }
+    .about-card-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(200,137,74,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 85%, rgba(61,31,13,0.8) 0%, transparent 50%),
+        linear-gradient(135deg, #1a0f07 0%, #3d1f0d 40%, #5c2e12 70%, #c8894a 100%);
+    }
+    /* SVG coffee bean pattern overlay */
+    .about-beans {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      background-image:
+        radial-gradient(ellipse 12px 18px at 20% 25%, #fff 100%, transparent 0),
+        radial-gradient(ellipse 10px 15px at 60% 15%, #fff 100%, transparent 0),
+        radial-gradient(ellipse 14px 20px at 75% 55%, #fff 100%, transparent 0),
+        radial-gradient(ellipse 10px 14px at 35% 70%, #fff 100%, transparent 0),
+        radial-gradient(ellipse 12px 17px at 85% 80%, #fff 100%, transparent 0),
+        radial-gradient(ellipse 9px 13px at 15% 85%, #fff 100%, transparent 0);
+    }
+    .about-card-text {
+      position: relative;
+      padding: 2rem;
+      color: var(--white);
+    }
+    .about-card-quote {
+      font-family: var(--ff-serif);
+      font-size: 1.3rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      opacity: 0.92;
+    }
+    .about-card-attr {
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .about-badge {
+      position: absolute;
+      top: -1.5rem;
+      right: -1.5rem;
+      width: 110px; height: 110px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(200,137,74,0.35);
+      text-align: center;
+    }
+    .about-badge-num {
+      font-family: var(--ff-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1;
+    }
+    .about-badge-text {
+      font-size: 0.62rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--roast);
+    }
+    .about-text { }
+    .about-features {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .about-feature {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      background: var(--latte);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .feature-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--espresso);
+      margin-bottom: 0.25rem;
+    }
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── BEANS ── */
+    #beans { background: var(--cream); }
+    .beans-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .beans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .bean-card {
+      background: var(--white);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .bean-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(26,15,7,0.12);
+    }
+    .bean-img {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bean-img-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .bean-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--espresso);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 1rem;
+    }
+    .bean-body { padding: 1.5rem; }
+    .bean-origin {
+      font-size: 0.75rem;
+      color: var(--crema);
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .bean-name {
+      font-family: var(--ff-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+    .bean-desc {
+      font-size: 0.855rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .bean-flavors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .flavor-tag {
+      background: var(--latte);
+      color: var(--roast);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.7rem;
+      border-radius: 1rem;
+    }
+    .bean-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .bean-price {
+      font-family: var(--ff-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+    .bean-price span {
+      font-family: var(--ff-sans);
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .bean-btn {
+      background: var(--espresso);
+      color: var(--white);
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 2rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .bean-btn:hover { background: var(--crema); }
+
+    /* ── PROCESS ── */
+    #process {
+      background: var(--espresso);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    #process::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,137,74,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #process .section-title { color: var(--white); }
+    #process .section-lead { color: rgba(255,255,255,0.6); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,137,74,0.3), rgba(200,137,74,0.3), transparent);
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--roast);
+      border: 2px solid rgba(200,137,74,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: var(--ff-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+    .step-title {
+      font-family: var(--ff-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .step-desc {
+      font-size: 0.855rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* ── TASTING ── */
+    #tasting { background: var(--white); }
+    .tasting-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .tasting-events {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .event-card {
+      background: var(--cream);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: box-shadow var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .event-card:hover {
+      box-shadow: 0 4px 24px rgba(26,15,7,0.08);
+      border-color: var(--latte);
+    }
+    .event-card.featured {
+      background: var(--espresso);
+      border-color: rgba(200,137,74,0.3);
+    }
+    .event-date {
+      flex-shrink: 0;
+      width: 54px;
+      text-align: center;
+      background: var(--latte);
+      border-radius: 0.75rem;
+      padding: 0.6rem 0.5rem;
+    }
+    .event-card.featured .event-date {
+      background: var(--roast);
+    }
+    .event-day {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--espresso);
+      line-height: 1;
+    }
+    .event-card.featured .event-day { color: var(--gold); }
+    .event-month {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .event-card.featured .event-month { color: rgba(255,255,255,0.5); }
+    .event-info { flex: 1; }
+    .event-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--espresso);
+      margin-bottom: 0.25rem;
+    }
+    .event-card.featured .event-title { color: var(--white); }
+    .event-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .event-card.featured .event-meta { color: rgba(255,255,255,0.5); }
+    .event-spots {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 1rem;
+      background: var(--latte);
+      color: var(--roast);
+      white-space: nowrap;
+      align-self: center;
+    }
+    .event-card.featured .event-spots {
+      background: rgba(200,137,74,0.25);
+      color: var(--gold);
+    }
+    .tasting-aside { }
+    .tasting-aside-card {
+      background: linear-gradient(145deg, var(--roast), var(--espresso));
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .tasting-aside-card::before {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(200,137,74,0.12);
+    }
+    .aside-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .aside-title {
+      font-family: var(--ff-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--gold);
+    }
+    .aside-text {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+    .aside-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+    .aside-list li {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .aside-list li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* ── LOCATION ── */
+    #location { background: var(--cream); }
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .location-map {
+      background: var(--white);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(26,15,7,0.1);
+    }
+    /* Stylised Amsterdam canal map */
+    .map-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .location-details { }
+    .location-info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .location-info-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+    .loc-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      background: var(--latte);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .loc-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--crema);
+      margin-bottom: 0.2rem;
+    }
+    .loc-value {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: linear-gradient(135deg, var(--roast) 0%, var(--espresso) 100%);
+      text-align: center;
+      padding: 5rem 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+    #newsletter::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,137,74,0.12) 0%, transparent 70%);
+    }
+    #newsletter .section-title { color: var(--white); margin-bottom: 0.75rem; }
+    #newsletter .section-lead {
+      color: rgba(255,255,255,0.6);
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 480px;
+      margin: 0 auto;
+      gap: 0;
+      border-radius: 3rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border: none;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: var(--ff-sans);
+      outline: none;
+      backdrop-filter: blur(4px);
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter-form button {
+      padding: 1rem 1.75rem;
+      background: var(--crema);
+      color: var(--white);
+      border: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: var(--ff-sans);
+      cursor: pointer;
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--gold); color: var(--espresso); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--espresso);
+      color: rgba(255,255,255,0.55);
+      padding: 4rem 5vw 2rem;
+    }
+    .footer-grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .nav-logo { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .social-link {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+    }
+    .social-link:hover { background: var(--crema); color: var(--white); }
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.65rem; }
+    .footer-col ul li a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid,
+      .tasting-grid,
+      .location-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .beans-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 580px) {
+      .beans-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a class="nav-logo" href="#"><span>Brew</span>haus</a>
+    <ul class="nav-links">
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#beans">Beans</a></li>
+      <li><a href="#tasting">Tastings</a></li>
+      <li><a href="#location">Find Us</a></li>
+      <li><a href="#tasting" class="nav-cta">Reserve a Seat</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Specialty Coffee Roasters · Amsterdam</div>
+      <h1 class="hero-title">
+        Where Every Cup<br>Tells a <em>Story</em>
+      </h1>
+      <p class="hero-subtitle">
+        We source, roast, and brew exceptional single-origin coffees from the world's finest growing regions — each batch crafted in the heart of Amsterdam.
+      </p>
+      <div class="hero-actions">
+        <a href="#beans" class="btn btn-primary">Explore Our Beans</a>
+        <a href="#tasting" class="btn btn-outline">Join a Tasting</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Origins sourced</div>
+        </div>
+        <div>
+          <div class="stat-num">2014</div>
+          <div class="stat-label">Founded in AMS</div>
+        </div>
+        <div>
+          <div class="stat-num">52×</div>
+          <div class="stat-label">Tastings per year</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-visual fade-up">
+          <div class="about-card">
+            <div class="about-card-bg"></div>
+            <div class="about-beans"></div>
+            <div class="about-card-text">
+              <p class="about-card-quote">"Coffee is a relationship between the farmer, the roaster, and the cup."</p>
+              <div class="about-card-attr">— Maarten de Vries, Head Roaster</div>
+            </div>
+          </div>
+          <div class="about-badge">
+            <div class="about-badge-num">10+</div>
+            <div class="about-badge-text">Years of craft</div>
+          </div>
+        </div>
+        <div class="about-text fade-up">
+          <div class="section-label">Our Story</div>
+          <h2 class="section-title">Rooted in Craft,<br><em>Driven by Passion</em></h2>
+          <p class="section-lead">
+            Brewhaus was born in a small canal-side warehouse in the Jordaan neighbourhood. What started as an obsession with perfect espresso has grown into Amsterdam's most beloved specialty roastery — without ever compromising on quality.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="feature-icon">🌍</div>
+              <div>
+                <div class="feature-title">Direct Trade Sourcing</div>
+                <div class="feature-desc">We build long-term partnerships with farmers in Ethiopia, Colombia, Guatemala, and beyond — paying well above Fair Trade prices.</div>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-icon">🔥</div>
+              <div>
+                <div class="feature-title">Small-Batch Roasting</div>
+                <div class="feature-desc">Our Probat roaster handles batches of just 15 kg, giving us precise control over every roast profile for maximum flavour clarity.</div>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-icon">📦</div>
+              <div>
+                <div class="feature-title">Fresh to Your Door</div>
+                <div class="feature-desc">We ship within 48 hours of roasting across the Netherlands and Europe, with compostable packaging only.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEANS -->
+  <section id="beans">
+    <div class="section-inner">
+      <div class="beans-header">
+        <div class="fade-up">
+          <div class="section-label">Single-Origin Selection</div>
+          <h2 class="section-title">Current <em>Harvest</em></h2>
+        </div>
+        <a href="#" class="btn btn-outline fade-up" style="border-color:var(--crema);color:var(--crema);">View All Beans →</a>
+      </div>
+      <div class="beans-grid">
+
+        <div class="bean-card fade-up">
+          <div class="bean-img">
+            <div class="bean-img-bg" style="background: linear-gradient(135deg, #2d6a4f 0%, #1b4332 50%, #081c15 100%);"></div>
+            <div class="bean-badge">New Arrival</div>
+            <svg style="position:absolute;bottom:0;left:0;right:0;opacity:0.2" viewBox="0 0 400 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 40 Q100 0 200 40 Q300 80 400 40 L400 80 L0 80 Z" fill="white"/></svg>
+          </div>
+          <div class="bean-body">
+            <div class="bean-origin">Ethiopia · Yirgacheffe</div>
+            <h3 class="bean-name">Konga Natural</h3>
+            <p class="bean-desc">Sun-dried on raised beds at 2,000m. Intensely aromatic with berry-forward complexity and a wine-like depth.</p>
+            <div class="bean-flavors">
+              <span class="flavor-tag">Blueberry</span>
+              <span class="flavor-tag">Jasmine</span>
+              <span class="flavor-tag">Dark Honey</span>
+              <span class="flavor-tag">Rose</span>
+            </div>
+            <div class="bean-footer">
+              <div class="bean-price">€16.50 <span>/ 250g</span></div>
+              <button class="bean-btn">Add to Bag</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bean-card fade-up">
+          <div class="bean-img">
+            <div class="bean-img-bg" style="background: linear-gradient(135deg, #7b4f21 0%, #4a2c0a 50%, #1a0f07 100%);"></div>
+            <div class="bean-badge">Best Seller</div>
+            <svg style="position:absolute;bottom:0;left:0;right:0;opacity:0.2" viewBox="0 0 400 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 40 Q100 0 200 40 Q300 80 400 40 L400 80 L0 80 Z" fill="white"/></svg>
+          </div>
+          <div class="bean-body">
+            <div class="bean-origin">Colombia · Huila</div>
+            <h3 class="bean-name">El Paraíso Washed</h3>
+            <p class="bean-desc">Washed-process beans from a family-run finca at 1,750m. Exceptionally clean, with a lingering caramel sweetness.</p>
+            <div class="bean-flavors">
+              <span class="flavor-tag">Caramel</span>
+              <span class="flavor-tag">Red Apple</span>
+              <span class="flavor-tag">Almond</span>
+              <span class="flavor-tag">Cacao</span>
+            </div>
+            <div class="bean-footer">
+              <div class="bean-price">€14.00 <span>/ 250g</span></div>
+              <button class="bean-btn">Add to Bag</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bean-card fade-up">
+          <div class="bean-img">
+            <div class="bean-img-bg" style="background: linear-gradient(135deg, #3d5a80 0%, #1b2d4a 50%, #0d1b2a 100%);"></div>
+            <div class="bean-badge">Limited</div>
+            <svg style="position:absolute;bottom:0;left:0;right:0;opacity:0.2" viewBox="0 0 400 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 40 Q100 0 200 40 Q300 80 400 40 L400 80 L0 80 Z" fill="white"/></svg>
+          </div>
+          <div class="bean-body">
+            <div class="bean-origin">Guatemala · Antigua</div>
+            <h3 class="bean-name">Finca La Hermosa</h3>
+            <p class="bean-desc">Grown in volcanic Antigua soil. A bold, full-bodied cup with dark chocolate and spice — perfect for espresso.</p>
+            <div class="bean-flavors">
+              <span class="flavor-tag">Dark Chocolate</span>
+              <span class="flavor-tag">Brown Sugar</span>
+              <span class="flavor-tag">Clove</span>
+            </div>
+            <div class="bean-footer">
+              <div class="bean-price">€15.00 <span>/ 250g</span></div>
+              <button class="bean-btn">Add to Bag</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ROASTING PROCESS -->
+  <section id="process">
+    <div class="section-inner">
+      <div style="max-width:540px;" class="fade-up">
+        <div class="section-label" style="color:var(--gold);">From Seed to Cup</div>
+        <h2 class="section-title">How We <em style="color:var(--crema)">Roast</em></h2>
+        <p class="section-lead">Every batch follows a meticulously crafted roast curve — developed over months of cupping and refinement.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-num">01</div>
+          <div class="step-title">Green Coffee Intake</div>
+          <div class="step-desc">We receive fresh-crop green beans and cup them against our benchmarks before accepting any lot.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">02</div>
+          <div class="step-title">Profile Development</div>
+          <div class="step-desc">Our head roaster designs a unique temperature curve tailored to each bean's density and moisture content.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">03</div>
+          <div class="step-title">Small-Batch Roasting</div>
+          <div class="step-desc">Roasted on a Probat P15, each 15 kg batch is logged digitally and monitored throughout first and second crack.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">04</div>
+          <div class="step-title">Rest & Dispatch</div>
+          <div class="step-desc">Beans rest for 48 hours to degas, then are sealed in valve bags and shipped within 24 hours of packing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TASTING EVENTS -->
+  <section id="tasting">
+    <div class="section-inner">
+      <div class="tasting-grid">
+        <div>
+          <div class="section-label fade-up">Weekly Cupping Sessions</div>
+          <h2 class="section-title fade-up">Join Our Thursday<br><em>Tasting Table</em></h2>
+          <p class="section-lead fade-up" style="margin-bottom:2.5rem;">
+            Every Thursday evening we gather at the roastery for an intimate cupping session. No experience needed — just curiosity and a love of good coffee.
+          </p>
+          <div class="tasting-events">
+            <div class="event-card featured fade-up">
+              <div class="event-date">
+                <div class="event-day">05</div>
+                <div class="event-month">Jun</div>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Ethiopian Origins Night</div>
+                <div class="event-meta">19:00 – 21:00 · Brewhaus Roastery, Jordaan</div>
+              </div>
+              <div class="event-spots">3 spots left</div>
+            </div>
+            <div class="event-card fade-up">
+              <div class="event-date">
+                <div class="event-day">12</div>
+                <div class="event-month">Jun</div>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Latin America Showcase</div>
+                <div class="event-meta">19:00 – 21:00 · Brewhaus Roastery, Jordaan</div>
+              </div>
+              <div class="event-spots">8 spots left</div>
+            </div>
+            <div class="event-card fade-up">
+              <div class="event-date">
+                <div class="event-day">19</div>
+                <div class="event-month">Jun</div>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Natural vs. Washed Processing</div>
+                <div class="event-meta">19:00 – 21:00 · Brewhaus Roastery, Jordaan</div>
+              </div>
+              <div class="event-spots">12 spots left</div>
+            </div>
+            <div class="event-card fade-up">
+              <div class="event-date">
+                <div class="event-day">26</div>
+                <div class="event-month">Jun</div>
+              </div>
+              <div class="event-info">
+                <div class="event-title">Rare & Micro-Lots Evening</div>
+                <div class="event-meta">19:00 – 21:00 · Brewhaus Roastery, Jordaan</div>
+              </div>
+              <div class="event-spots">Waitlist</div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="tasting-aside-card">
+            <div class="aside-icon">☕</div>
+            <div class="aside-title">What to Expect</div>
+            <p class="aside-text">A guided sensory journey through 4–6 coffees, led by our head roaster. You'll learn to identify aromas, taste notes, and understand what makes each origin unique.</p>
+            <ul class="aside-list">
+              <li>4–6 coffees cupped per session</li>
+              <li>Expert guidance from our roasters</li>
+              <li>Take-home tasting notes & recipe cards</li>
+              <li>10% discount on beans purchased that night</li>
+              <li>Max 12 guests per session</li>
+            </ul>
+            <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">
+              Reserve Your Seat — €18
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location">
+    <div class="section-inner">
+      <div class="location-grid">
+        <div class="fade-up">
+          <div class="section-label">Visit Us</div>
+          <h2 class="section-title">Find Us in<br><em>Jordaan, Amsterdam</em></h2>
+          <p class="section-lead">Our roastery and café are open six days a week. Come for a coffee, stay for a conversation.</p>
+          <ul class="location-info-list">
+            <li class="location-info-item">
+              <div class="loc-icon">📍</div>
+              <div>
+                <div class="loc-label">Address</div>
+                <div class="loc-value">Bloemgracht 47<br>1016 KD Amsterdam, Netherlands</div>
+              </div>
+            </li>
+            <li class="location-info-item">
+              <div class="loc-icon">🕐</div>
+              <div>
+                <div class="loc-label">Opening Hours</div>
+                <div class="loc-value">Mon – Fri: 07:30 – 18:00<br>Sat: 09:00 – 17:00 · Sun: Closed</div>
+              </div>
+            </li>
+            <li class="location-info-item">
+              <div class="loc-icon">📞</div>
+              <div>
+                <div class="loc-label">Phone</div>
+                <div class="loc-value">+31 20 737 4501</div>
+              </div>
+            </li>
+            <li class="location-info-item">
+              <div class="loc-icon">✉️</div>
+              <div>
+                <div class="loc-label">Email</div>
+                <div class="loc-value">hello@brewhausamsterdam.nl</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="location-map fade-up">
+          <!-- Stylised Amsterdam canal-ring map in SVG -->
+          <svg class="map-svg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="400" fill="#e8f0e9"/>
+            <!-- Water -->
+            <ellipse cx="250" cy="200" rx="220" ry="160" fill="#b8d4e8" opacity="0.5"/>
+            <ellipse cx="250" cy="200" rx="170" ry="120" fill="#c8ddf0" opacity="0.5"/>
+            <ellipse cx="250" cy="200" rx="120" ry="80"  fill="#d4e6f5" opacity="0.5"/>
+            <!-- Canal ring roads -->
+            <ellipse cx="250" cy="200" rx="220" ry="160" fill="none" stroke="#a0bfd4" stroke-width="10"/>
+            <ellipse cx="250" cy="200" rx="170" ry="120" fill="none" stroke="#a0bfd4" stroke-width="8"/>
+            <ellipse cx="250" cy="200" rx="120" ry="80"  fill="none" stroke="#a0bfd4" stroke-width="6"/>
+            <!-- City blocks rough -->
+            <rect x="100" y="120" width="300" height="160" fill="#f0ebe3" opacity="0.5" rx="4"/>
+            <!-- Streets -->
+            <line x1="250" y1="40"  x2="250" y2="360" stroke="#ccc" stroke-width="2" opacity="0.6"/>
+            <line x1="30"  y1="200" x2="470" y2="200" stroke="#ccc" stroke-width="2" opacity="0.6"/>
+            <line x1="100" y1="80"  x2="400" y2="320" stroke="#ccc" stroke-width="1.5" opacity="0.4"/>
+            <line x1="400" y1="80"  x2="100" y2="320" stroke="#ccc" stroke-width="1.5" opacity="0.4"/>
+            <!-- Location pin -->
+            <g transform="translate(215, 155)">
+              <circle cx="0" cy="0" r="18" fill="#c8894a" opacity="0.2"/>
+              <circle cx="0" cy="0" r="10" fill="#c8894a"/>
+              <circle cx="0" cy="0" r="4"  fill="white"/>
+              <line x1="0" y1="10" x2="0" y2="22" stroke="#c8894a" stroke-width="2"/>
+            </g>
+            <!-- Label -->
+            <rect x="130" y="190" width="140" height="30" rx="6" fill="white" opacity="0.9"/>
+            <text x="200" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#3d1f0d" font-weight="600">Brewhaus Coffee</text>
+            <!-- Compass rose -->
+            <g transform="translate(445, 50)">
+              <circle cx="0" cy="0" r="18" fill="white" opacity="0.8"/>
+              <text x="0" y="-6"  text-anchor="middle" font-family="Inter" font-size="9" fill="#7a5c44" font-weight="700">N</text>
+              <text x="0" y="14"  text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa">S</text>
+              <text x="-12" y="4" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa">W</text>
+              <text x="12"  y="4" text-anchor="middle" font-family="Inter" font-size="8" fill="#aaa">E</text>
+              <line x1="0" y1="-14" x2="0" y2="14" stroke="#c8894a" stroke-width="1" opacity="0.5"/>
+              <line x1="-14" y1="0" x2="14" y2="0" stroke="#c8894a" stroke-width="1" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="section-inner" style="position:relative;">
+      <div class="section-label fade-up" style="color:var(--gold);text-align:center;">Stay in the Loop</div>
+      <h2 class="section-title fade-up" style="text-align:center;">New Harvests. Event Invites.<br><em style="color:var(--crema)">Roasting Stories.</em></h2>
+      <p class="section-lead fade-up">Subscribe and be the first to hear about new single-origin arrivals, limited micro-lots, and upcoming tasting events.</p>
+      <form class="newsletter-form fade-up" onsubmit="handleSubscribe(event)">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="subscribe-msg" style="color:var(--gold);margin-top:1rem;font-size:0.9rem;min-height:1.5em;text-align:center;"></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="#"><span>Brew</span>haus</a>
+        <p>Specialty coffee roasters in the heart of Amsterdam's Jordaan. Sourcing responsibly, roasting with care, since 2014.</p>
+        <div class="footer-social">
+          <a class="social-link" href="#" aria-label="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a class="social-link" href="#" aria-label="Twitter/X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">Single-Origin Beans</a></li>
+          <li><a href="#">Espresso Blends</a></li>
+          <li><a href="#">Brew Equipment</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Subscriptions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="#">Tasting Events</a></li>
+          <li><a href="#">Brew Guides</a></li>
+          <li><a href="#">Our Roastery</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Sourcing</a></li>
+          <li><a href="#">Wholesale</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Brewhaus Coffee B.V. · Amsterdam · KvK 72184930</span>
+      <span>
+        <a href="#" style="color:inherit;text-decoration:none;margin-right:1.5rem;">Privacy Policy</a>
+        <a href="#" style="color:inherit;text-decoration:none;">Terms & Conditions</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Scroll-triggered fade-in
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Newsletter form
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const msg = document.getElementById('subscribe-msg');
+      msg.textContent = '✓ You\'re in! Watch your inbox for the next harvest announcement.';
+      e.target.reset();
+    }
+
+    // Bean "Add to Bag" micro-interaction
+    document.querySelectorAll('.bean-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orig = this.textContent;
+        this.textContent = '✓ Added';
+        this.style.background = '#2d6a4f';
+        setTimeout(() => {
+          this.textContent = orig;
+          this.style.background = '';
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
