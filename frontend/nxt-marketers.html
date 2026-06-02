@@ -7,529 +7,440 @@
   <meta name="description" content="De Nederlandse community voor AI-native marketers en founders. Praktische workflows, geen hype." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #080810;
-      --bg2: #0d0d1a;
-      --surface: rgba(255,255,255,0.04);
-      --border: rgba(255,255,255,0.08);
-      --text: #f0f0f8;
-      --muted: #7b7b9a;
-      --accent1: #7c5cfc;
-      --accent2: #e040fb;
-      --accent3: #00e5ff;
-      --grad: linear-gradient(135deg, var(--accent1), var(--accent2));
-      --grad2: linear-gradient(135deg, var(--accent2), var(--accent3));
+      --bg:      #FAFAF5;
+      --ink:     #0D0D0D;
+      --yellow:  #FFE535;
+      --pink:    #FF4D9E;
+      --green:   #00E87A;
+      --blue:    #3D5AFE;
+      --orange:  #FF6B2B;
+      --lilac:   #C9B8FF;
+      --shadow:  4px 4px 0px var(--ink);
+      --shadow-lg: 6px 6px 0px var(--ink);
+      --border:  2px solid var(--ink);
+      --radius:  6px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      color: var(--ink);
+      line-height: 1.55;
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: .5;
-    }
+    /* ── UTILITY ── */
+    .mono { font-family: 'Space Mono', monospace; }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: sticky;
+      top: 0;
       z-index: 100;
+      background: var(--bg);
+      border-bottom: var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 5%;
-      background: rgba(8,8,16,0.7);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      padding: 16px 5%;
     }
 
     .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 800;
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--yellow);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 8px 14px;
+      display: inline-block;
     }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      align-items: center;
+      gap: 4px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: var(--ink);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: color .2s;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      transition: background .15s, border-color .15s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover {
+      background: var(--yellow);
+      border-color: var(--ink);
+    }
 
     .nav-cta {
-      background: var(--grad);
-      color: #fff !important;
-      padding: 10px 22px;
-      border-radius: 100px;
-      font-weight: 600 !important;
-      font-size: 0.85rem !important;
-      transition: opacity .2s, transform .2s !important;
+      background: var(--ink) !important;
+      color: var(--bg) !important;
+      border: var(--border) !important;
+      box-shadow: var(--shadow);
+      transition: transform .15s, box-shadow .15s !important;
     }
 
-    .nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+    .nav-cta:hover {
+      background: var(--ink) !important;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink) !important;
+    }
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 5% 80px;
-      overflow: hidden;
-    }
-
-    /* background glow blobs */
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 800px;
-      height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,92,252,0.18) 0%, transparent 70%);
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      animation: drift 12s ease-in-out infinite alternate;
-    }
-
-    .blob-1 {
-      width: 500px; height: 500px;
-      background: rgba(124,92,252,0.12);
-      top: 10%; left: -10%;
-      animation-duration: 14s;
-    }
-
-    .blob-2 {
-      width: 400px; height: 400px;
-      background: rgba(224,64,251,0.1);
-      top: 20%; right: -5%;
-      animation-duration: 10s;
-      animation-delay: -4s;
-    }
-
-    .blob-3 {
-      width: 300px; height: 300px;
-      background: rgba(0,229,255,0.08);
-      bottom: 10%; left: 30%;
-      animation-duration: 16s;
-      animation-delay: -8s;
-    }
-
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(30px, -40px) scale(1.05); }
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(124,92,252,0.15);
-      border: 1px solid rgba(124,92,252,0.3);
-      color: #a98fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 8px 16px;
-      border-radius: 100px;
-      margin-bottom: 32px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent1);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .5; transform: scale(0.8); }
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 6rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero h1 .line-plain { display: block; }
-
-    .hero h1 .line-grad {
-      display: block;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero h1 .line-grad2 {
-      display: block;
-      background: var(--grad2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 48px;
-      position: relative;
-      z-index: 1;
-      line-height: 1.7;
-    }
-
-    .hero-sub strong { color: var(--text); font-weight: 600; }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--grad);
-      color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 16px 32px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: opacity .2s, transform .2s, box-shadow .2s;
-      box-shadow: 0 0 40px rgba(124,92,252,0.35);
-    }
-
-    .btn-primary:hover {
-      opacity: .9;
-      transform: translateY(-2px);
-      box-shadow: 0 0 60px rgba(124,92,252,0.5);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 16px 32px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      text-decoration: none;
-      transition: border-color .2s, background .2s, transform .2s;
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.2);
-      background: var(--surface);
-      transform: translateY(-2px);
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      justify-content: center;
-      margin-top: 72px;
-      position: relative;
-      z-index: 1;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 500;
-      margin-top: 4px;
-    }
-
-    /* ── MARQUEE ── */
-    .marquee-section {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .marquee-track {
-      display: flex;
-      gap: 48px;
-      animation: marquee 25s linear infinite;
-      white-space: nowrap;
-    }
-
-    .marquee-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      flex-shrink: 0;
-    }
-
-    .marquee-item span { color: var(--accent1); font-size: 1.2rem; }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── SECTIONS ── */
-    section { position: relative; z-index: 1; }
-
-    .section-pad { padding: 100px 5%; }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent1);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-
-    .section-sub {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ── WHAT WE DO — BENTO GRID ── */
-    .bento-grid {
+      padding: 80px 5% 60px;
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .bento-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .3s, transform .3s;
-    }
-
-    .bento-card:hover {
-      border-color: rgba(124,92,252,0.3);
-      transform: translateY(-4px);
-    }
-
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(124,92,252,0.06), transparent 60%);
-      pointer-events: none;
-    }
-
-    .bento-card.col-8 { grid-column: span 8; }
-    .bento-card.col-4 { grid-column: span 4; }
-    .bento-card.col-6 { grid-column: span 6; }
-    .bento-card.col-4-c { grid-column: span 4; }
-
-    .card-icon {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 24px;
-    }
-
-    .icon-purple { background: rgba(124,92,252,0.15); }
-    .icon-pink   { background: rgba(224,64,251,0.15); }
-    .icon-cyan   { background: rgba(0,229,255,0.12); }
-    .icon-mixed  { background: linear-gradient(135deg, rgba(124,92,252,0.15), rgba(224,64,251,0.15)); }
-
-    .card-tag {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--accent1);
-      background: rgba(124,92,252,0.1);
-      border: 1px solid rgba(124,92,252,0.2);
-      padding: 5px 12px;
-      border-radius: 100px;
-      margin-bottom: 16px;
+      background: var(--green);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 8px 14px;
+      margin-bottom: 28px;
+      display: inline-block;
     }
 
-    .bento-card h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
+    .hero h1 {
+      font-size: clamp(3rem, 6.5vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 28px;
     }
 
-    .bento-card p {
-      color: var(--muted);
-      font-size: 0.95rem;
+    .hero h1 em {
+      font-style: normal;
+      background: var(--yellow);
+      border-bottom: 4px solid var(--ink);
+      padding: 0 6px;
+      display: inline-block;
+    }
+
+    .hero h1 .pink-hl {
+      background: var(--pink);
+      color: #fff;
+      padding: 0 6px;
+      display: inline-block;
+      border-bottom: 4px solid var(--ink);
+    }
+
+    .hero-lead {
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin-bottom: 36px;
+      color: #333;
       line-height: 1.65;
     }
 
-    .bento-card.featured h3 { font-size: 2rem; }
+    .hero-lead strong { color: var(--ink); font-weight: 700; }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      padding: 14px 28px;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+      line-height: 1;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+
+    .btn-yellow { background: var(--yellow); color: var(--ink); }
+    .btn-ink    { background: var(--ink);    color: var(--bg);  }
+    .btn-pink   { background: var(--pink);   color: #fff;       }
+    .btn-white  { background: var(--bg);     color: var(--ink); }
+
+    /* ── HERO SIDE CARD ── */
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 80px;
+    }
+
+    .stat-card {
+      background: var(--bg);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 20px 24px;
+      min-width: 180px;
+    }
+
+    .stat-card.yellow { background: var(--yellow); }
+    .stat-card.pink   { background: var(--pink); color: #fff; }
+    .stat-card.green  { background: var(--green); }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: .75;
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      border-top: var(--border);
+      border-bottom: var(--border);
+      background: var(--ink);
+      color: var(--yellow);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 48px;
+      animation: ticker 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ticker-item::before {
+      content: '★';
+      color: var(--pink);
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+    .section-full { padding: 80px 5%; }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--lilac);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: #555;
+      max-width: 480px;
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+
+    /* ── BENTO GRID ── */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .bento-card {
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+      padding: 32px 28px;
+      background: var(--bg);
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .bento-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0px var(--ink);
+    }
+
+    .bento-card.span-8 { grid-column: span 8; }
+    .bento-card.span-4 { grid-column: span 4; }
+    .bento-card.span-6 { grid-column: span 6; }
+    .bento-card.span-4b { grid-column: span 4; }
+
+    .bento-card.bg-yellow { background: var(--yellow); }
+    .bento-card.bg-pink   { background: var(--pink); color: #fff; }
+    .bento-card.bg-green  { background: var(--green); }
+    .bento-card.bg-lilac  { background: var(--lilac); }
+    .bento-card.bg-blue   { background: var(--blue); color: #fff; }
+
+    .card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      opacity: .65;
+      margin-bottom: 14px;
+    }
+
+    .card-emoji {
+      font-size: 2.4rem;
+      margin-bottom: 16px;
+      display: block;
+      line-height: 1;
+    }
+
+    .bento-card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      line-height: 1.15;
+    }
+
+    .bento-card.span-8 h3 { font-size: 1.9rem; }
+
+    .bento-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      opacity: .8;
+    }
 
     .tool-pills {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
-    .tool-pill {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
+    .pill {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border: 2px solid currentColor;
+      display: inline-block;
     }
 
-    /* ── HOW IT WORKS ── */
-    .steps-bg { background: var(--bg2); }
+    /* ── STEPS ── */
+    .steps-bg {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .steps-bg .section-label { background: var(--yellow); }
+    .steps-bg .section-title { color: var(--bg); }
+    .steps-bg .section-sub   { color: rgba(255,255,255,.6); }
 
     .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .step-card {
-      position: relative;
-      padding: 36px 28px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      transition: border-color .3s, transform .3s;
+      border: 2px solid rgba(255,255,255,.25);
+      padding: 32px 24px;
+      background: rgba(255,255,255,0.04);
+      transition: border-color .2s, background .2s;
     }
 
     .step-card:hover {
-      border-color: rgba(124,92,252,0.3);
-      transform: translateY(-4px);
+      border-color: var(--yellow);
+      background: rgba(255,229,53,0.05);
     }
 
     .step-num {
+      font-family: 'Space Mono', monospace;
       font-size: 3.5rem;
-      font-weight: 900;
+      font-weight: 700;
+      color: var(--yellow);
       letter-spacing: -0.04em;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
       line-height: 1;
       margin-bottom: 16px;
     }
 
     .step-card h3 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .step-card p {
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,.6);
       line-height: 1.6;
     }
 
@@ -537,265 +448,225 @@
     .formats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
+      gap: 16px;
     }
 
     .format-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px 28px;
-      transition: border-color .3s, transform .3s;
-      position: relative;
-      overflow: hidden;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 32px 24px;
+      background: var(--bg);
+      transition: transform .15s, box-shadow .15s;
     }
 
     .format-card:hover {
-      border-color: rgba(224,64,251,0.3);
-      transform: translateY(-4px);
-    }
-
-    .format-card::after {
-      content: '';
-      position: absolute;
-      bottom: -30px; right: -30px;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(224,64,251,0.08), transparent);
-      pointer-events: none;
-    }
-
-    .format-emoji {
-      font-size: 2.2rem;
-      margin-bottom: 20px;
-      display: block;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
     }
 
     .format-card h3 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
 
     .format-card p {
       font-size: 0.88rem;
-      color: var(--muted);
+      color: #555;
       line-height: 1.6;
     }
 
-    /* ── COMMUNITY PROOF ── */
-    .proof-bg { background: var(--bg2); }
+    /* ── VOOR WIE ── */
+    .forwhom-bg { background: var(--yellow); border-top: var(--border); border-bottom: var(--border); }
 
+    .forwhom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto 40px;
+    }
+
+    .forwhom-card {
+      background: var(--bg);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+      text-align: center;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .forwhom-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .forwhom-card .emoji { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+    .forwhom-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .forwhom-card p { font-size: 0.78rem; color: #555; line-height: 1.5; }
+
+    /* ── TESTIMONIALS ── */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
+      gap: 16px;
     }
 
-    .testimonial-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      transition: border-color .3s;
+    .t-card {
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      background: var(--bg);
+      transition: transform .15s, box-shadow .15s;
     }
 
-    .testimonial-card:hover { border-color: rgba(124,92,252,0.25); }
+    .t-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .t-card.yellow { background: var(--yellow); }
+    .t-card.green  { background: var(--green); }
+    .t-card.pink   { background: var(--pink); color: #fff; }
 
     .stars {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 16px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--ink);
+      margin-bottom: 14px;
     }
 
-    .star { color: #f5a623; font-size: 0.9rem; }
+    .t-card.pink .stars { color: #fff; }
 
-    .testimonial-card blockquote {
+    .t-card blockquote {
       font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--text);
-      margin-bottom: 24px;
+      line-height: 1.65;
+      margin-bottom: 20px;
       font-style: italic;
     }
 
-    .testimonial-author {
+    .t-author {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .author-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: var(--grad);
+    .t-avatar {
+      width: 38px; height: 38px;
+      background: var(--ink);
+      color: var(--yellow);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 0.85rem;
-      color: #fff;
       flex-shrink: 0;
     }
 
-    .author-name { font-weight: 700; font-size: 0.9rem; }
-    .author-title { font-size: 0.78rem; color: var(--muted); }
+    .t-card.pink .t-avatar { background: #fff; color: var(--pink); }
 
-    /* ── VOOR WIE ── */
-    .forwhom-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    .t-name  { font-size: 0.88rem; font-weight: 700; }
+    .t-title { font-size: 0.76rem; opacity: .65; }
 
-    .forwhom-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 20px;
-      text-align: center;
-      transition: border-color .3s, transform .3s;
-    }
-
-    .forwhom-item:hover {
-      border-color: rgba(0,229,255,0.3);
-      transform: translateY(-4px);
-    }
-
-    .forwhom-emoji { font-size: 2rem; margin-bottom: 14px; display: block; }
-
-    .forwhom-item h4 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .forwhom-item p {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ── CTA SECTION ── */
+    /* ── CTA ── */
     .cta-section {
+      padding: 100px 5%;
       text-align: center;
-      padding: 120px 5%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(124,92,252,0.12), transparent);
-      pointer-events: none;
-    }
-
-    .cta-card {
-      max-width: 700px;
+      max-width: 800px;
       margin: 0 auto;
-      background: var(--surface);
-      border: 1px solid rgba(124,92,252,0.25);
-      border-radius: 28px;
+    }
+
+    .cta-box {
+      background: var(--ink);
+      color: var(--bg);
+      border: var(--border);
+      box-shadow: 8px 8px 0px var(--pink);
       padding: 64px 48px;
-      position: relative;
-      z-index: 1;
     }
 
-    .cta-card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 29px;
-      background: var(--grad);
-      z-index: -1;
-      opacity: .15;
-    }
-
-    .cta-card h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 900;
+    .cta-box h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .cta-card p {
-      color: var(--muted);
+    .cta-box h2 em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .cta-box p {
+      color: rgba(255,255,255,.65);
       font-size: 1rem;
-      line-height: 1.7;
-      margin-bottom: 40px;
+      line-height: 1.65;
+      max-width: 440px;
+      margin: 0 auto 36px;
     }
 
     .cta-form {
       display: flex;
-      gap: 12px;
-      max-width: 420px;
+      gap: 0;
+      max-width: 400px;
       margin: 0 auto;
     }
 
     .cta-input {
       flex: 1;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 14px 20px;
-      color: var(--text);
+      background: var(--bg);
+      border: 2px solid var(--bg);
+      border-right: none;
+      padding: 14px 18px;
       font-size: 0.95rem;
-      font-family: inherit;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
       outline: none;
-      transition: border-color .2s;
     }
 
-    .cta-input:focus { border-color: var(--accent1); }
-    .cta-input::placeholder { color: var(--muted); }
+    .cta-input::placeholder { color: #888; }
 
-    .cta-btn {
-      background: var(--grad);
-      color: #fff;
+    .cta-submit {
+      background: var(--yellow);
+      color: var(--ink);
+      border: 2px solid var(--bg);
+      padding: 14px 24px;
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
       font-size: 0.95rem;
-      padding: 14px 28px;
-      border-radius: 100px;
-      border: none;
       cursor: pointer;
-      transition: opacity .2s, transform .2s;
       white-space: nowrap;
-      font-family: inherit;
+      transition: background .15s;
     }
 
-    .cta-btn:hover { opacity: .9; transform: translateY(-1px); }
+    .cta-submit:hover { background: var(--green); }
 
     .cta-note {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 16px;
+      font-size: 0.76rem;
+      color: rgba(255,255,255,.4);
+      margin-top: 14px;
+      font-family: 'Space Mono', monospace;
     }
 
     /* ── FOOTER ── */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 5%;
+      border-top: var(--border);
+      background: var(--ink);
+      color: var(--bg);
+      padding: 32px 5%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 16px;
     }
 
     .footer-logo {
-      font-size: 1rem;
-      font-weight: 800;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--yellow);
     }
 
     .footer-links {
@@ -805,53 +676,46 @@
     }
 
     .footer-links a {
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.5);
       text-decoration: none;
-      transition: color .2s;
+      transition: color .15s;
     }
 
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a:hover { color: var(--yellow); }
 
     .footer-copy {
-      font-size: 0.8rem;
-      color: var(--muted);
+      font-size: 0.76rem;
+      color: rgba(255,255,255,.3);
+      font-family: 'Space Mono', monospace;
     }
 
-    /* ── HIGHLIGHT INLINE ── */
-    .hl {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .5s ease, transform .5s ease;
     }
+    .reveal.visible { opacity: 1; transform: none; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .bento-card.col-8,
-      .bento-card.col-4,
-      .bento-card.col-6,
-      .bento-card.col-4-c { grid-column: span 12; }
-
-      .bento-grid { grid-template-columns: 1fr; }
-
+      .hero { grid-template-columns: 1fr; }
+      .hero-side { flex-direction: row; padding-top: 0; }
+      .bento-card.span-8,
+      .bento-card.span-4,
+      .bento-card.span-6,
+      .bento-card.span-4b { grid-column: span 12; }
+      .bento { grid-template-columns: 1fr; }
       .nav-links { display: none; }
-
-      .cta-form { flex-direction: column; }
-
       footer { flex-direction: column; text-align: center; }
     }
 
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
+    @media (max-width: 500px) {
+      .hero-side { flex-direction: column; }
+      .cta-box { padding: 36px 24px; }
+      .cta-form { flex-direction: column; }
+      .cta-input { border-right: 2px solid var(--bg); border-bottom: none; }
     }
   </style>
 </head>
@@ -859,7 +723,7 @@
 
 <!-- NAV -->
 <nav>
-  <span class="nav-logo">NXT Marketers</span>
+  <a href="#" class="nav-logo">NXT_MARKETERS</a>
   <ul class="nav-links">
     <li><a href="#wat-we-doen">Wat we doen</a></li>
     <li><a href="#formats">Formats</a></li>
@@ -870,361 +734,354 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-
-  <div class="hero-eyebrow">
-    <span class="eyebrow-dot"></span>
-    Nederlandse AI Marketing Community
-  </div>
-
-  <h1>
-    <span class="line-plain">Marketing die</span>
-    <span class="line-grad">écht werkt</span>
-    <span class="line-plain">met AI</span>
-  </h1>
-
-  <p class="hero-sub">
-    Geen simpele prompttips. <strong>Praktische workflows</strong> die je morgen al inzet — voor campagnes, content en groei. Voor elke marketer, ook zonder technische achtergrond. 😉
-  </p>
-
-  <div class="hero-actions">
-    <a href="#aansluiten" class="btn-primary">
-      Word lid van de community →
-    </a>
-    <a href="#wat-we-doen" class="btn-secondary">
-      Bekijk wat we doen
-    </a>
-  </div>
-
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">1.200+</div>
-      <div class="stat-label">AI-native marketers</div>
+<div style="max-width:1200px; margin:0 auto; padding: 0 5%;">
+  <section class="hero" style="padding-left:0; padding-right:0;">
+    <div>
+      <div class="hero-badge reveal">🇳🇱 Nederlandse AI Marketing Community</div>
+      <h1 class="reveal">
+        Marketing<br>
+        die <em>écht</em><br>
+        werkt <span class="pink-hl">met AI</span>
+      </h1>
+      <p class="hero-lead reveal">
+        Geen simpele prompttips. <strong>Praktische workflows</strong> die je morgen al inzet — voor campagnes, content en groei. Voor elke marketer, ook zonder technische achtergrond. 😉
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#aansluiten" class="btn btn-yellow">Word lid gratis →</a>
+        <a href="#wat-we-doen" class="btn btn-white">Bekijk wat we doen</a>
+      </div>
     </div>
-    <div class="stat">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">Workshops & events</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Praktisch toepasbaar</div>
-    </div>
-  </div>
-</section>
 
-<!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track" id="marquee">
-    <span class="marquee-item"><span>⚡</span> Higgsfield Campagnes</span>
-    <span class="marquee-item"><span>🤖</span> Claude Cowork</span>
-    <span class="marquee-item"><span>🔍</span> AI SEO Content</span>
-    <span class="marquee-item"><span>🎬</span> Branded Video</span>
-    <span class="marquee-item"><span>📊</span> Advertentie Workflows</span>
-    <span class="marquee-item"><span>🧠</span> Claude Code</span>
-    <span class="marquee-item"><span>🚀</span> Growth Marketing</span>
-    <span class="marquee-item"><span>💡</span> AI Strategie</span>
-    <!-- duplicaat voor naadloze loop -->
-    <span class="marquee-item"><span>⚡</span> Higgsfield Campagnes</span>
-    <span class="marquee-item"><span>🤖</span> Claude Cowork</span>
-    <span class="marquee-item"><span>🔍</span> AI SEO Content</span>
-    <span class="marquee-item"><span>🎬</span> Branded Video</span>
-    <span class="marquee-item"><span>📊</span> Advertentie Workflows</span>
-    <span class="marquee-item"><span>🧠</span> Claude Code</span>
-    <span class="marquee-item"><span>🚀</span> Growth Marketing</span>
-    <span class="marquee-item"><span>💡</span> AI Strategie</span>
+    <div class="hero-side">
+      <div class="stat-card yellow reveal">
+        <div class="stat-num">1.200+</div>
+        <div class="stat-label">AI-native marketers</div>
+      </div>
+      <div class="stat-card green reveal">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Workshops & events</div>
+      </div>
+      <div class="stat-card pink reveal">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Direct toepasbaar</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">Higgsfield Campagnes</span>
+    <span class="ticker-item">Claude Cowork</span>
+    <span class="ticker-item">Geautomatiseerde SEO</span>
+    <span class="ticker-item">Branded Video</span>
+    <span class="ticker-item">Advertentie Workflows</span>
+    <span class="ticker-item">Claude Code</span>
+    <span class="ticker-item">Growth Marketing</span>
+    <span class="ticker-item">AI Strategie</span>
+    <span class="ticker-item">Higgsfield Campagnes</span>
+    <span class="ticker-item">Claude Cowork</span>
+    <span class="ticker-item">Geautomatiseerde SEO</span>
+    <span class="ticker-item">Branded Video</span>
+    <span class="ticker-item">Advertentie Workflows</span>
+    <span class="ticker-item">Claude Code</span>
+    <span class="ticker-item">Growth Marketing</span>
+    <span class="ticker-item">AI Strategie</span>
   </div>
 </div>
 
 <!-- WAT WE DOEN -->
-<section class="section-pad" id="wat-we-doen">
-  <div class="section-header reveal">
-    <span class="section-eyebrow">Wat we doen</span>
-    <h2 class="section-title">AI marketing van theorie<br>naar <span class="hl">echte resultaten</span></h2>
-    <p class="section-sub">We behandelen de tools en workflows die er toe doen — hands-on, direct toepasbaar.</p>
-  </div>
+<div id="wat-we-doen" style="border-bottom: 2px solid #0D0D0D;">
+  <div class="section">
+    <div class="reveal">
+      <span class="section-label">Wat we doen</span>
+      <h2 class="section-title">AI marketing van<br>theorie naar resultaat</h2>
+      <p class="section-sub">We behandelen tools en workflows die er echt toe doen — hands-on, direct toepasbaar door elke marketeer.</p>
+    </div>
 
-  <div class="bento-grid">
-    <div class="bento-card col-8 featured reveal">
-      <div class="card-icon icon-purple">🎬</div>
-      <div class="card-tag">Campagnes</div>
-      <h3>Branded image & video campagnes</h3>
-      <p>Van concept tot publicatie: leer hoe je met tools als Higgsfield campagnes maakt die eruitzien alsof er een heel creatief team achter zat — in een fractie van de tijd en het budget.</p>
-      <div class="tool-pills">
-        <span class="tool-pill">Higgsfield</span>
-        <span class="tool-pill">Midjourney</span>
-        <span class="tool-pill">Runway</span>
-        <span class="tool-pill">CapCut AI</span>
+    <div class="bento">
+      <div class="bento-card span-8 bg-yellow reveal">
+        <div class="card-label">Campagnes</div>
+        <span class="card-emoji">🎬</span>
+        <h3>Branded image & video campagnes</h3>
+        <p>Van concept tot publicatie: leer hoe je met tools als Higgsfield campagnes maakt die eruitzien alsof er een heel creatief team achter zat — in een fractie van de tijd en het budget.</p>
+        <div class="tool-pills">
+          <span class="pill">Higgsfield</span>
+          <span class="pill">Midjourney</span>
+          <span class="pill">Runway</span>
+          <span class="pill">CapCut AI</span>
+        </div>
+      </div>
+
+      <div class="bento-card span-4 bg-pink reveal">
+        <div class="card-label">Advertenties</div>
+        <span class="card-emoji">📣</span>
+        <h3>Advertentie­workflows</h3>
+        <p>Schaalbare ad-creatie met Claude Cowork. Van briefing tot live campagne zonder eindeloos heen-en-weer met bureaus.</p>
+        <div class="tool-pills">
+          <span class="pill">Claude Cowork</span>
+          <span class="pill">Meta Ads</span>
+        </div>
+      </div>
+
+      <div class="bento-card span-4b reveal">
+        <div class="card-label">Content</div>
+        <span class="card-emoji">🔍</span>
+        <h3>Geauto­matiseerde SEO-content</h3>
+        <p>Laat Claude Code voor je werken: schaalbare contentstrategie die rankt én converteert.</p>
+      </div>
+
+      <div class="bento-card span-4b bg-green reveal">
+        <div class="card-label">Strategie</div>
+        <span class="card-emoji">🧪</span>
+        <h3>AI-native marketing­strategie</h3>
+        <p>Bouw je marketingproces opnieuw op vanuit AI — niet AI er achteraf op plakken.</p>
+      </div>
+
+      <div class="bento-card span-4b bg-blue reveal">
+        <div class="card-label">Productiviteit</div>
+        <span class="card-emoji">⚡</span>
+        <h3>10× sneller werken</h3>
+        <p>Concrete workflows die uren besparen per week. Geen hypothetische use cases — dingen die vandaag werken.</p>
       </div>
     </div>
-
-    <div class="bento-card col-4 reveal">
-      <div class="card-icon icon-pink">📣</div>
-      <div class="card-tag">Advertenties</div>
-      <h3>Advertentie&shy;workflows</h3>
-      <p>Schaalbare ad-creatie met Claude Cowork. Van briefing tot live campagne zonder eindeloos heen-en-weer met bureaus.</p>
-      <div class="tool-pills">
-        <span class="tool-pill">Claude Cowork</span>
-        <span class="tool-pill">Meta Ads</span>
-      </div>
-    </div>
-
-    <div class="bento-card col-4-c reveal">
-      <div class="card-icon icon-cyan">🔍</div>
-      <div class="card-tag">Content</div>
-      <h3>Geauto&shy;matiseerde SEO-content</h3>
-      <p>Laat Claude Code voor je werken: schaalbare contentstrategie die rankt én converteert.</p>
-    </div>
-
-    <div class="bento-card col-4-c reveal">
-      <div class="card-icon icon-mixed">🧪</div>
-      <div class="card-tag">Strategie</div>
-      <h3>AI-native marketing&shy;strategie</h3>
-      <p>Bouw je marketingproces opnieuw op vanuit AI — niet AI er achteraf op plakken.</p>
-    </div>
-
-    <div class="bento-card col-4-c reveal">
-      <div class="card-icon icon-purple">⚡</div>
-      <div class="card-tag">Productiviteit</div>
-      <h3>10× sneller werken</h3>
-      <p>Concrete workflows die uren besparen per week. Geen hypothetische use cases — dingen die vandaag werken.</p>
-    </div>
   </div>
-</section>
+</div>
 
 <!-- HOW IT WORKS -->
-<section class="section-pad steps-bg" id="hoe-werkt-het">
-  <div class="section-header reveal">
-    <span class="section-eyebrow">Hoe het werkt</span>
-    <h2 class="section-title">Van nul naar<br><span class="hl">AI-native marketeer</span></h2>
-    <p class="section-sub">Een community gebouwd voor snelle praktijkleer — geen dikke cursussen, wel directe waarde.</p>
+<div class="steps-bg" id="hoe-werkt-het" style="border-bottom: 2px solid rgba(255,255,255,0.15);">
+  <div class="section-full">
+    <div style="max-width:1100px; margin: 0 auto;">
+      <div class="reveal">
+        <span class="section-label">Hoe het werkt</span>
+        <h2 class="section-title">Van nul naar AI-native marketeer</h2>
+        <p class="section-sub">Geen dikke cursussen, wel directe waarde. Vier stappen, meteen toepasbaar.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">01</div>
+          <h3>Sluit je aan</h3>
+          <p>Gratis lidmaatschap, directe toegang tot de kennisbank en community-discussies.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">02</div>
+          <h3>Kies je thema</h3>
+          <p>Campagnes, SEO, ads, strategie — ga dieper in op wat jij nodig hebt, op je eigen tempo.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">03</div>
+          <h3>Leer van peers</h3>
+          <p>Workshops en masterclasses met mensen die het zelf toepassen — geen goeroe-verhalen.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">04</div>
+          <h3>Implementeer morgen</h3>
+          <p>Elke sessie eindigt met iets wat je de volgende dag al kunt inzetten. Dat is de enige maatstaf.</p>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="steps-grid">
-    <div class="step-card reveal">
-      <div class="step-num">01</div>
-      <h3>Sluit je aan</h3>
-      <p>Word lid van de community. Gratis instap, directe toegang tot de kennisbank en discussies.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">02</div>
-      <h3>Kies je thema</h3>
-      <p>Campagnes, SEO, ads, strategie — ga dieper in op wat jij nodig hebt. Op je eigen tempo.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">03</div>
-      <h3>Leer van peers</h3>
-      <p>Workshops, live events en masterclasses met mensen die het zelf toepassen — geen goeroe-verhalen.</p>
-    </div>
-    <div class="step-card reveal">
-      <div class="step-num">04</div>
-      <h3>Implementeer morgen</h3>
-      <p>Elke sessie eindigt met iets wat je de volgende dag al kunt inzetten. Dat is de enige maatstaf die telt.</p>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- FORMATS -->
-<section class="section-pad" id="formats">
-  <div class="section-header reveal">
-    <span class="section-eyebrow">Formats</span>
-    <h2 class="section-title">Kennis overdragen<br>zoals het <span class="hl">werkt</span></h2>
-    <p class="section-sub">We geloven niet in endloze video-cursussen die je nooit afmaakt. Onze formats zijn compact en direct.</p>
-  </div>
+<div id="formats" style="border-bottom: 2px solid #0D0D0D;">
+  <div class="section">
+    <div class="reveal">
+      <span class="section-label">Formats</span>
+      <h2 class="section-title">Kennis overdragen<br>zoals het werkt</h2>
+      <p class="section-sub">Compact en direct. Geen eindeloze video-cursussen die je nooit afmaakt.</p>
+    </div>
 
-  <div class="formats-grid">
-    <div class="format-card reveal">
-      <span class="format-emoji">🛠️</span>
-      <h3>Workshops</h3>
-      <p>Hands-on sessies van 2–3 uur. Je werkt live aan jouw eigen campagne of workflow, met directe feedback.</p>
-    </div>
-    <div class="format-card reveal">
-      <span class="format-emoji">🎤</span>
-      <h3>Masterclasses</h3>
-      <p>Diepgaande sessies met practitioners die het zelf doen. Geen theorie, wel: "dit deed ik, dit gebeurde er."</p>
-    </div>
-    <div class="format-card reveal">
-      <span class="format-emoji">🤝</span>
-      <h3>Community Events</h3>
-      <p>Offline en online bijeenkomsten om te netwerken met AI-native marketers in Nederland.</p>
-    </div>
-    <div class="format-card reveal">
-      <span class="format-emoji">📚</span>
-      <h3>Kennisbank</h3>
-      <p>Growende bibliotheek van workflows, prompts en playbooks die community-leden zelf testen en bijdragen.</p>
-    </div>
-    <div class="format-card reveal">
-      <span class="format-emoji">💬</span>
-      <h3>Community</h3>
-      <p>Actieve Slack/Discord-groep. Stel je vraag, deel je resultaten, vind een sparringpartner.</p>
-    </div>
-    <div class="format-card reveal">
-      <span class="format-emoji">🔴</span>
-      <h3>Live Demo's</h3>
-      <p>Korte live streams waarbij we een tool of workflow live uitproberen. Inclusief de misslukkingen.</p>
+    <div class="formats-grid">
+      <div class="format-card reveal">
+        <span class="card-emoji">🛠️</span>
+        <h3>Workshops</h3>
+        <p>Hands-on sessies van 2–3 uur. Je werkt live aan jouw eigen campagne of workflow, met directe feedback.</p>
+      </div>
+      <div class="format-card reveal" style="background: var(--lilac);">
+        <span class="card-emoji">🎤</span>
+        <h3>Masterclasses</h3>
+        <p>Diepgaande sessies met practitioners die het zelf doen. "Dit deed ik, dit gebeurde er." Dat soort eerlijkheid.</p>
+      </div>
+      <div class="format-card reveal" style="background: var(--green);">
+        <span class="card-emoji">🤝</span>
+        <h3>Community Events</h3>
+        <p>Offline en online bijeenkomsten om te netwerken met AI-native marketers in Nederland.</p>
+      </div>
+      <div class="format-card reveal">
+        <span class="card-emoji">📚</span>
+        <h3>Kennisbank</h3>
+        <p>Workflows, prompts en playbooks die community-leden zelf testen en bijdragen. Altijd up to date.</p>
+      </div>
+      <div class="format-card reveal" style="background: var(--yellow);">
+        <span class="card-emoji">💬</span>
+        <h3>Community</h3>
+        <p>Actieve groep. Stel je vraag, deel je resultaten, vind een sparringpartner die het ook echt doet.</p>
+      </div>
+      <div class="format-card reveal" style="background: var(--pink); color: #fff;">
+        <span class="card-emoji">🔴</span>
+        <h3>Live Demo's</h3>
+        <p>Korte live streams waarbij we een tool of workflow live uitproberen — inclusief de mislukkingen.</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- VOOR WIE -->
-<section class="section-pad steps-bg" id="voor-wie">
-  <div class="section-header reveal">
-    <span class="section-eyebrow">Voor wie</span>
-    <h2 class="section-title">Dit is <span class="hl">voor jou</span></h2>
-    <p class="section-sub">Je hoeft geen developer te zijn. AI is zo toegankelijk geworden dat iedere marketeer het kan beheersen.</p>
-  </div>
+<div class="forwhom-bg" id="voor-wie">
+  <div class="section">
+    <div class="reveal" style="text-align:center; margin-bottom: 40px;">
+      <span class="section-label">Voor wie</span>
+      <h2 class="section-title">Dit is voor jou</h2>
+      <p class="section-sub" style="margin: 0 auto;">Je hoeft geen developer te zijn. AI is zo toegankelijk geworden dat iedere marketer het kan beheersen.</p>
+    </div>
 
-  <div class="forwhom-grid">
-    <div class="forwhom-item reveal">
-      <span class="forwhom-emoji">🎯</span>
-      <h4>Marketing Manager</h4>
-      <p>Wil sneller betere campagnes draaien zonder afhankelijk te zijn van bureau's</p>
-    </div>
-    <div class="forwhom-item reveal">
-      <span class="forwhom-emoji">🚀</span>
-      <h4>Founder / Ondernemer</h4>
-      <p>Moet zelf marketing doen en wil dat slim aanpakken met AI als multiplicator</p>
-    </div>
-    <div class="forwhom-item reveal">
-      <span class="forwhom-emoji">✍️</span>
-      <h4>Content Creator</h4>
-      <p>Zoekt workflows om sneller meer te produceren zonder kwaliteit in te leveren</p>
-    </div>
-    <div class="forwhom-item reveal">
-      <span class="forwhom-emoji">📈</span>
-      <h4>Growth Marketeer</h4>
-      <p>Wil AI inzetten voor experimenteren en optimaliseren op een schaal die voorheen niet mogelijk was</p>
-    </div>
-    <div class="forwhom-item reveal">
-      <span class="forwhom-emoji">🏢</span>
-      <h4>Marketing Team</h4>
-      <p>Wil als team AI-native werken en heeft concrete training nodig, geen abstracte theorie</p>
-    </div>
-  </div>
-
-  <div style="text-align:center; margin-top: 48px; position:relative; z-index:1;">
-    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 8px;">Technische achtergrond nodig?</p>
-    <p style="font-size: 1.1rem; font-weight: 700;">Absoluut niet. <span class="hl">Echt niet.</span></p>
-  </div>
-</section>
-
-<!-- COMMUNITY TESTIMONIALS -->
-<section class="section-pad" id="community">
-  <div class="section-header reveal">
-    <span class="section-eyebrow">Community</span>
-    <h2 class="section-title">Wat leden zeggen</h2>
-    <p class="section-sub">Geen gefabriceerde quotes — dit zijn echte ervaringen van mensen die het zelf doen.</p>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+    <div class="forwhom-grid">
+      <div class="forwhom-card reveal">
+        <span class="emoji">🎯</span>
+        <h4>Marketing Manager</h4>
+        <p>Wil sneller betere campagnes draaien zonder afhankelijk te zijn van bureaus</p>
       </div>
-      <blockquote>"Na de Higgsfield workshop had ik binnen een middag een volledige campagne klaar die er professioneler uitziet dan wat een bureau ons ooit heeft geleverd — voor een fractie van de prijs."</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">SV</div>
-        <div>
-          <div class="author-name">Sara van den Berg</div>
-          <div class="author-title">Marketing Manager, Scale-up Amsterdam</div>
+      <div class="forwhom-card reveal">
+        <span class="emoji">🚀</span>
+        <h4>Founder / Ondernemer</h4>
+        <p>Moet zelf marketing doen en wil dat slim aanpakken met AI als multiplicator</p>
+      </div>
+      <div class="forwhom-card reveal">
+        <span class="emoji">✍️</span>
+        <h4>Content Creator</h4>
+        <p>Zoekt workflows om sneller meer te produceren zonder kwaliteit in te leveren</p>
+      </div>
+      <div class="forwhom-card reveal">
+        <span class="emoji">📈</span>
+        <h4>Growth Marketeer</h4>
+        <p>Wil experimenteren op een schaal die voorheen niet mogelijk was</p>
+      </div>
+      <div class="forwhom-card reveal">
+        <span class="emoji">🏢</span>
+        <h4>Marketing Team</h4>
+        <p>Wil als team AI-native werken met concrete training, geen abstracte theorie</p>
+      </div>
+    </div>
+
+    <div class="reveal" style="text-align:center; padding: 32px; border: var(--border); box-shadow: var(--shadow-lg); background: var(--ink); color: var(--bg); max-width: 520px; margin: 0 auto;">
+      <p style="font-size:0.85rem; font-family:'Space Mono',monospace; letter-spacing:0.05em; text-transform:uppercase; opacity:.6; margin-bottom:8px;">Technische achtergrond nodig?</p>
+      <p style="font-size:1.6rem; font-weight:700; letter-spacing:-0.02em;">Absoluut niet. <span style="color:var(--yellow);">Echt niet.</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div id="community" style="border-top: 2px solid #0D0D0D; border-bottom: 2px solid #0D0D0D;">
+  <div class="section">
+    <div class="reveal">
+      <span class="section-label">Community</span>
+      <h2 class="section-title">Wat leden zeggen</h2>
+      <p class="section-sub">Geen gefabriceerde quotes. Echte ervaringen van mensen die het zelf doen.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="t-card yellow reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Na de Higgsfield workshop had ik binnen een middag een volledige campagne klaar die er professioneler uitziet dan wat een bureau ons ooit heeft geleverd — voor een fractie van de prijs."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">SV</div>
+          <div>
+            <div class="t-name">Sara van den Berg</div>
+            <div class="t-title">Marketing Manager, Scale-up Amsterdam</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Eindelijk een community die geen AI-hype verkoopt maar gewoon laat zien: hier is de tool, hier is de workflow, zo doe je het. Dat is zeldzaam."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">TK</div>
+          <div>
+            <div class="t-name">Tim Koenders</div>
+            <div class="t-title">Founder, SaaS startup Rotterdam</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card pink reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Ik dacht dat AI iets was voor developers. Na twee sessies bij NXT Marketers denk ik daar heel anders over. De drempel is echt veel lager dan je denkt."</blockquote>
+        <div class="t-author">
+          <div class="t-avatar">LR</div>
+          <div>
+            <div class="t-name">Lisa Roos</div>
+            <div class="t-title">Freelance Content Strategist</div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="testimonial-card reveal">
-      <div class="stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-      </div>
-      <blockquote>"Eindelijk een community die geen AI-hype verkoopt maar gewoon laat zien: hier is de tool, hier is de workflow, zo doe je het. Dat is zeldzaam."</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">TK</div>
-        <div>
-          <div class="author-name">Tim Koenders</div>
-          <div class="author-title">Founder, SaaS startup Rotterdam</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card reveal">
-      <div class="stars">
-        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-      </div>
-      <blockquote>"Ik dacht dat AI iets was voor developers. Na twee sessies bij NXT Marketers denk ik daar anders over. De drempel is echt veel lager dan je denkt."</blockquote>
-      <div class="testimonial-author">
-        <div class="author-avatar">LR</div>
-        <div>
-          <div class="author-name">Lisa Roos</div>
-          <div class="author-title">Freelance Content Strategist</div>
-        </div>
-      </div>
-    </div>
   </div>
-</section>
+</div>
 
 <!-- CTA -->
-<section class="cta-section" id="aansluiten">
-  <div class="cta-card reveal">
-    <h2>Klaar om <span class="hl">echt</span> aan de slag te gaan?</h2>
-    <p>Sluit je aan bij 1.200+ Nederlandse marketers en founders die AI al inzetten als hun grootste concurrentievoordeel. Gratis lidmaatschap, directe toegang.</p>
-    <form class="cta-form" onsubmit="handleSignup(event)">
-      <input class="cta-input" type="email" placeholder="jouw@email.nl" required />
-      <button class="cta-btn" type="submit">Doe mee →</button>
-    </form>
-    <p class="cta-note">Gratis instap · Geen spam · Altijd opzegbaar</p>
+<div id="aansluiten">
+  <div class="cta-section">
+    <div class="cta-box reveal">
+      <h2>Klaar om <em>écht</em><br>aan de slag te gaan?</h2>
+      <p>Sluit je aan bij 1.200+ Nederlandse marketers en founders. Gratis lidmaatschap, directe toegang.</p>
+      <form class="cta-form" onsubmit="handleSignup(event)">
+        <input class="cta-input" type="email" placeholder="jouw@email.nl" required />
+        <button class="cta-submit" type="submit">Doe mee →</button>
+      </form>
+      <p class="cta-note">// gratis · geen spam · altijd opzegbaar</p>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">NXT Marketers</span>
+  <span class="footer-logo">NXT_MARKETERS</span>
   <ul class="footer-links">
     <li><a href="#wat-we-doen">Wat we doen</a></li>
     <li><a href="#formats">Formats</a></li>
     <li><a href="#voor-wie">Voor wie</a></li>
     <li><a href="#aansluiten">Aanmelden</a></li>
   </ul>
-  <span class="footer-copy">© 2025 NXT Marketers. Made with AI 🤖</span>
+  <span class="footer-copy">© 2025 NXT Marketers</span>
 </footer>
 
 <script>
   // Scroll reveal
-  const observer = new IntersectionObserver(
-    (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
   );
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    // stagger children within grids
+    const grid = el.closest('.bento, .steps-grid, .formats-grid, .testimonials-grid, .forwhom-grid');
+    if (grid) {
+      const siblings = [...grid.querySelectorAll('.reveal')];
+      el.style.transitionDelay = `${siblings.indexOf(el) * 70}ms`;
+    }
+    io.observe(el);
+  });
 
-  // Staggered card reveals within grids
-  document.querySelectorAll('.bento-grid, .steps-grid, .formats-grid, .testimonials-grid, .forwhom-grid')
-    .forEach(grid => {
-      [...grid.querySelectorAll('.reveal')].forEach((card, i) => {
-        card.style.transitionDelay = `${i * 80}ms`;
-      });
-    });
-
-  // Signup handler
-  function handleSignup(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.cta-btn');
-    const input = e.target.querySelector('.cta-input');
-    btn.textContent = 'Gelukt! ✓';
-    btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-    input.value = '';
-    setTimeout(() => {
-      btn.textContent = 'Doe mee →';
-      btn.style.background = '';
-    }, 3000);
-  }
-
-  // Smooth nav link scroll
+  // Smooth anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+
+  // Signup
+  function handleSignup(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.cta-submit');
+    const input = e.target.querySelector('.cta-input');
+    btn.textContent = 'Gelukt! ✓';
+    btn.style.background = 'var(--green)';
+    input.value = '';
+    setTimeout(() => { btn.textContent = 'Doe mee →'; btn.style.background = ''; }, 3000);
+  }
 </script>
 </body>
 </html>
