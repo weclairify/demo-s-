@@ -4,3 +4,5 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  PYTHON_VERSION = "3.14"
+  NPM_FLAGS = "--legacy-peer-deps"
